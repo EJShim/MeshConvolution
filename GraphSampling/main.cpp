@@ -8,6 +8,7 @@ LICENSE file in the root directory of this source tree.
 
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <filesystem>
 
 #include <iostream>
 //#include "meshPooler.h"
@@ -298,7 +299,7 @@ int main(int argc, char **argv) {
 
     std::string meshname = argv[1];
     std::string basepath = argv[2];
-    mkdir(basepath.c_str(), 0755);
+    std::filesystem::create_directories(basepath.c_str());
    
    
     mesh.loadmesh_obj(meshname);
@@ -312,10 +313,10 @@ int main(int argc, char **argv) {
 
     
     string folder= basepath + "/connections";
-    mkdir(folder.c_str(), 0755);
+    std::filesystem::create_directories(folder.c_str());
        
     std::string outfolderpath = folder+"/body/";
-    mkdir(outfolderpath.c_str(), 0755);    
+    std::filesystem::create_directories(outfolderpath.c_str());    
     
     meshCNN.save_pool_and_unpool_neighbor_info_to_npz(outfolderpath);
 
